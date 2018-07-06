@@ -1,0 +1,512 @@
+table(feature.selection$finalDecision)
+fNames <- getSelectedAttributes(feature.selection) # withTentative = TRUE
+fNames
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+str(dat)
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat,model.matrix(~device_model)),with(dat,model.matrix(~device_type)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_conn_type))))
+dat<-cbind(dat,newframe)
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+site_domain<-as.data.frame(cbind())
+site_category<-as.data.frame(cbind())
+device_model<-as.data.frame(cbind())
+device_type<-as.data.frame(cbind())
+device_conn_type<-as.data.frame(cbind())
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+site_domain<-as.data.frame(cbind(with(dat,model.matrix(~app_domain))))
+site_category<-as.data.frame(cbind(with(dat, model.matrix(~app_category))))
+device_model<-as.data.frame(cbind(with(dat,model.matrix(~device_model))))
+device_type<-as.data.frame(cbind(with(dat,model.matrix(~device_type))))
+device_conn_type<-as.data.frame(cbind(with(dat,model.matrix(~device_conn_type))))
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat,model.matrix(~device_type)),with(dat, model.matrix(~site_category))))
+dat<-cbind(dat,newframe)
+drops <- c("id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip")
+drops <- c("id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+dat <- as.data.frame(sapply(dat, function(i) if(is.numeric(i)) scale(i) else i))
+dat$click <- factor(dat$click,levels = c("1","2"),labels = c("No", "Yes"))
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+source("svm.R")
+svmsigmoid.test<-svmkernel("sigmoid",training)
+dat$click
+svmsigmoid.test<-svmkernel("sigmoid",training)
+str(dat)
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+str(dat)
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat,model.matrix(~device_type)),with(dat, model.matrix(~site_category))))
+str(newframe)
+dat<-cbind(dat,newframe)
+str(dat)
+drops <- c("id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+str(dat)
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+str(dat)
+dat <- as.data.frame(sapply(dat, function(i) if(is.numeric(i)) scale(i) else i))
+str(dat)
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat,model.matrix(~device_type)),with(dat, model.matrix(~site_category))))
+dat<-cbind(dat,newframe)
+drops <- c("id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+dat
+dat[,c("C1","C14")]
+dat
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+dat
+dat$click <- factor(dat$click,levels = c("1","2"),labels = c("No", "Yes"))
+dat$click
+dat$click <- factor(dat$click,levels = c("1","2"),labels = c("No", "Yes"))
+dat$click
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+dat$click
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+dat$click
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+source("svm.R")
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+rm(list=ls())
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+source("svm.R")
+svmsigmoid.test<-svmkernel("sigmoid",training)
+warnings()
+dat
+str(newframe)
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+str(newframe)
+dat<-cbind(dat,newframe)
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+warnings()
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+dat <- data.frame(lapply(dat, as.character), stringsAsFactors=FALSE)
+dat <- data.frame(lapply(dat, as.numeric))
+dat[is.na(dat)] <- 0
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+dat$click
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+dat$click
+dat <- data.frame(lapply(dat, as.character), stringsAsFactors=FALSE)
+dat$click
+dat[is.na(dat)] <- 0
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+dat$click
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+training
+training$click
+rm(list=ls())
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+newframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))
+drop2 <- c("(Intercept)")
+newframe<-newframe[ , !(names(newframe) %in% drop2)]
+dat<-cbind(dat,newframe)
+drops <- c("site_domain","site_category","device_type","id","hour","site_id","app_id","app_domain","app_category","device_id","device_ip","device_model","device_conn_type")
+dat<-dat[ , !(names(dat) %in% drops)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+set.seed(117)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+rm(list=ls())
+library(caret) # use for createDataPartition
+library(readr) # Reading data file
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+keeps <- c("click","C1","banner_pos","C14","C15","C16","C17","C18","C19","C20","C21")
+dat<-dat[ , (names(dat) %in% keeps)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+set.seed(117)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+svmradial.test<-svmkernel("radial",training)
+confusionMatrix(svmradial.test, testing$click)
+svmpolynomial.test<-svmkernel("polynomial",training)
+confusionMatrix(svmpolynomial.test, testing$click)
+vote<-NULL
+vote <- as.factor(vote)
+levels(vote) = list(No=c("1"),Yes=c("2"))
+for(i in 1:length(svmpolynomial.test)){
+vote[i]<-ifelse(which.max(table(c(svmsigmoid.test[i],svmradial.test[i],svmpolynomial.test[i])))==1,"No","Yes")
+}
+vote
+confusionMatrix(vote,testing$click)
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+svmsigmoid.test<-svmkernel("sigmoid",training)
+confusionMatrix(svmsigmoid.test, testing$click)
+svmradial.test<-svmkernel("radial",training)
+confusionMatrix(svmradial.test, testing$click)
+svmpolynomial.test<-svmkernel("polynomial",training)
+confusionMatrix(svmpolynomial.test, testing$click)
+table(svmpolynomial.test, testing$click)
+table(svmradial.test, testing$click)
+table(svmsigmoid.test, testing$click)
+vote<-NULL
+vote <- as.factor(vote)
+levels(vote) = list(No=c("1"),Yes=c("2"))
+for(i in 1:length(svmpolynomial.test)){
+vote[i]<-ifelse(which.max(table(c(svmsigmoid.test[i],svmradial.test[i],svmpolynomial.test[i])))==1,"No","Yes")
+}
+confusionMatrix(vote,testing$click)
+svmradial.test<-svmkernel("radial",training,0.5)
+source("svm.R")
+svmradial.test<-svmkernel("radial",training,0.5)
+confusionMatrix(svmradial.test, testing$click)
+svmradial.test<-svmkernel("radial",training,1)
+help(svm)
+confusionMatrix(svmradial.test, testing$click)
+svmradial.test<-svmkernel("radial",training,5)
+confusionMatrix(svmradial.test, testing$click)
+svmradial.test<-svmkernel("radial",training,50)
+confusionMatrix(svmradial.test, testing$click)
+svmradial.test<-svmkernel("radial",training,5000)
+confusionMatrix(svmradial.test, testing$click)
+plot.svm
+plot.svm(svmradial.test)
+plot(svmradial.test,testing)
+plot(svmradial.test,testing)
+svmradial.test<-svmkernel("radial",training,50000000)
+confusionMatrix(svmradial.test, testing$click)
+system.time(svmradial.test<-svmkernel("radial",training,50000000))
+help(createDataPartition)
+library(caret) # use for createDataPartition
+library(readr) # Reading data file
+source("svm.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+keeps <- c("click","C1","banner_pos","C14","C15","C16","C17","C18","C19","C20","C21")
+dat<-dat[ , (names(dat) %in% keeps)]
+dat$click <- as.factor(dat$click)
+dat$click <- factor(dat$click,levels = c("0","1"),labels = c("No", "Yes"))
+sampling_attr<-c("C1","C14","C15","C16","C17","C18","C19","C20","C21")
+dat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))
+str(dat)
+install.packages('pROC')
+library(caret) # use for createDataPartition
+library(caretEnsemble) # use for train
+library(rpart) #rpart tree
+library(pROC)
+library(kernlab)       # support vector machine
+library(readr)
+source("~/INSE6180_Project/preprocessing/Preprocessing.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+dat <-preprocessing(dat)
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+control <- trainControl(method="repeatedcv", number=10, repeats=3, savePredictions="final", classProbs=TRUE)
+algorithmList <- c('lda', 'rpart', 'glm', 'knn', 'svmRadial')
+algorithmList <- c('rpart', 'glm','svmRadial')
+models <- caretList(click ~ ., data = training, trControl=control,metric = "ROC", methodList=algorithmList)
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(click ~ ., data = training, trControl=control,metric = "ROC", methodList=algorithmList)
+models <- caretList(click ~ ., data = training, trControl=control,metric = "ROC", methodList=algorithmList)
+control <- trainControl(method="repeatedcv", number=10, repeats=3, savePredictions="final", classProbs=TRUE)
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(click ~ ., data = training, trControl=control,metric = "ROC", methodList=algorithmList)
+models <- caretList(click ~ ., data = training, trControl=control, methodList=algorithmList)
+control <- trainControl(method="cv", number=10, repeats=3, savePredictions="final", classProbs=T,index=createResample(training$click,5),sampling="up"
+,summaryFunction = twoClassSummary)
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(click ~ ., data = training, trControl=control, methodList=algorithmList)
+results <- resamples(models)
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(click ~ ., data = training, trControl=control, methodList=algorithmList)
+rm(list=ls())
+install.packages('pROC')
+library(caret) # use for createDataPartition
+install.packages("pROC")
+library(caret) # use for createDataPartition
+library(caretEnsemble) # use for train
+library(rpart) #rpart tree
+library(pROC)
+library(kernlab)       # support vector machine
+library(readr)
+source("~/INSE6180_Project/preprocessing/Preprocessing.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+dat <-preprocessing(dat)
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+control <- trainControl(method = "cv",
+number = 5,
+savePredictions = "final",
+classProbs = T,
+index=createResample(training$click, 5),
+sampling = "up",
+summaryFunction = twoClassSummary)
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(click ~ ., data = training, trControl=control, methodList=algorithmList)
+models <- caretList(
+click ~ ., data = training,
+trControl = control,
+metric = "ROC",
+methodList = algorithmList
+)
+dat[is.na(dat)] <- 0
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+control <- trainControl(method = "cv",
+number = 5,
+savePredictions = "final",
+classProbs = T,
+index=createResample(training$click, 5),
+sampling = "up",
+summaryFunction = twoClassSummary)
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(
+click ~ ., data = training,
+trControl = control,
+metric = "ROC",
+methodList = algorithmList
+)
+library(readr) # Reading data file
+source("~/INSE6180_Project/base/SVM.R")
+source("~/INSE6180_Project/base/DecisionTree.R")
+source("~/INSE6180_Project/base/LogisticRegression.R")
+source("~/INSE6180_Project/preprocessing/Preprocessing.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+dat <- preprocessing(dat)
+set.seed(100)
+inTrain <- sample(2, nrow(dat), replace=TRUE, prob=c(0.7, 0.3))
+training <- dat[ inTrain==1,]
+testing <- dat[inTrain==2,]
+dt.test<-decisionTree(training,testing)
+confusionMatrix(dt.test, testing$click)
+library(caret)
+confusionMatrix(dt.test, testing$click)
+svmradial.test<-svmkernel("radial",training,testing)
+confusionMatrix(svmradial.test, testing$click)
+lr.test<-logisticRegression(training,testing)
+confusionMatrix(lr.test, testing$click)
+source("~/INSE6180_Project/base/NaiveBayes.R")
+nb.test<-naiveBayes(training,testing)
+nb.test<-naiveBayesFn(training,testing)
+confusionMatrix(nb.test, testing$click)
+source("~/INSE6180_Project/base/NaiveBayes.R")
+nb.test<-naiveBayesFn(training,testing)
+confusionMatrix(nb.test, testing$click)
+colAUC(model_preds, testing$click)
+rm(list=ls())
+source("~/INSE6180_Project/base/NaiveBayes.R")
+install.packages('pROC')
+library(caret) # use for createDataPartition
+library(caretEnsemble) # use for train
+library(party) #rpart tree
+library(pROC)
+library(kernlab)       # support vector machine
+library(readr)
+source("~/INSE6180_Project/preprocessing/Preprocessing.R")
+dat <- read_csv("~/INSE6180_Project/data/training10k.csv")
+dat <-preprocessing(dat)
+dat[is.na(dat)] <- 0
+set.seed(107)
+inTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)
+training <- dat[ inTrain,]
+testing <- dat[-inTrain,]
+control <- trainControl(method = "cv",
+number = 5,
+savePredictions = "final",
+classProbs = T,
+index=createResample(training$click, 5),
+sampling = "up",
+summaryFunction = twoClassSummary)
+algorithmList <- c('party', 'glm','nb')
+models <- caretList(
+click ~ ., data = training,
+trControl = control,
+metric = "ROC",
+methodList = algorithmList
+)
+algorithmList <- c('rpart', 'glm','nb')
+library(rpart) #rpart tree
+algorithmList <- c('rpart', 'glm','nb')
+models <- caretList(
+click ~ ., data = training,
+trControl = control,
+metric = "ROC",
+methodList = algorithmList
+)
+help(caretList)
+models <- caretList(
+click ~ ., data = dat,
+trControl = control,
+metric = "ROC",
+methodList = algorithmList
+)
+models <- caretList(
+click ~ ., data = testing,
+trControl = control,
+metric = "ROC",
+methodList = algorithmList
+)

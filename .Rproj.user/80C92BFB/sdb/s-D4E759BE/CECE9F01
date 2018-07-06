@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#stacking ensemble\ninstall.packages('pROC')\ninstall.packages('caretEnsemble')\nlibrary(caret) # use for createDataPartition\nlibrary(caretEnsemble) # use for train\ninstall.packages('package:ggplot2')\nlibrary(rpart) #rpart tree\n\nlibrary(pROC)\n\n#library(kernlab)       # support vector machine \n# Reading data file\nlibrary(readr)\nsource(\"~/INSE6180_Project/preprocessing/Preprocessing.R\")\ndat <- read_csv(\"~/INSE6180_Project/data/training10k.csv\")\n\ndat <-preprocessing(dat)\n#dat[is.na(dat)] <- 0\n\n\n# Split data into two sets - Training and Testing\nset.seed(107)\n\ninTrain <- createDataPartition(y = dat$click, p = .7, list = FALSE)\n\ntraining <- dat[ inTrain,]\ntesting <- dat[-inTrain,]\n\n#Training control\n#to build the object that specifies how model training is going to happen\n#create a 10-fold cross-validation and save the final predictions (the probabilities)\n#a classifier that is highly accurate\n#but does a horrible job at predicting the outcome of interest, which is to say it doesn't predict any true positives.\n#To balance the response, you can upsample the minority class,\n#downsample the majority class, or create \"synthetic data\".\n\ncontrol <- trainControl(method = \"cv\",\n                        number = 5,\n                        savePredictions = \"final\",\n                        classProbs = T,\n                        index=createResample(training$click, 5),\n                        sampling = \"up\",\n                        summaryFunction = twoClassSummary)\n\nalgorithmList <- c('rpart', 'glm','nb')\n\n#To balance the response, you can upsample the minority class,\n#downsample the majority class, or create \"synthetic data\"\n#next step...\n\nmodels <- caretList(\n  click~banner_pos+C1+C21, data = training,\n  trControl = control,\n  metric = \"ROC\",\n  methodList = algorithmList\n)\nresults <- resamples(models)\n\n\n#result of 3 models\nmodelCor(resamples(models))\n\n\np <- as.data.frame(predict(models, newdata=head(testing)))\nprint(p)\n\n\n\n\n#stack model\n# To do this, we will capture the predicted probabilities for \"Yes\" on the test set in a dataframe:\nmodel_preds <- lapply(models, predict, newdata=testing, type=\"prob\")\n#model_preds <- lapply(model_preds, function(x) x[,\"Yes\"])\nmodel_preds <- data.frame(model_preds)\n\nstack <- caretStack(models, method = \"glm\",\n                    metric = \"Accuracy\",\n                    trControl = trainControl(\n                      method = \"boot\",\n                      number = 5,\n                      savePredictions = \"final\",\n                      classProbs = TRUE,\n                      summaryFunction = twoClassSummary\n                    ))\n\nprob <- 1-predict(stack, newdata = testing, type = \"prob\")\nmodel_preds$stack <- ifelse(prob>0.5,\"Yes\",\"No\")\nmodel_preds$stack<-prob\nlibrary(caTools)\nmodel_preds\ncolAUC(model_preds, testing$click)\n",
+    "created" : 1502135298642.000,
+    "dirty" : true,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2968015081",
+    "id" : "CECE9F01",
+    "lastKnownWriteTime" : 1502241816,
+    "last_content_update" : 1502242039157,
+    "path" : "~/INSE6180_Project/ensemble/StackingEnsemble.R",
+    "project_path" : "ensemble/StackingEnsemble.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

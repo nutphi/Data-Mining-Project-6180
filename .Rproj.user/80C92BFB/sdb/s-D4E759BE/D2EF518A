@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "preprocessing<-function(dat){\n  \n#source(\"~/INSE6180_Project/preprocessing/RandomForestFeatureSelection.R\")\n#dat<-featureSelection(dat)\n  \n# to change nominal to bernouli\n# add attribute on keeps,\n# add attribute on newframe<- ,with(dat,model.matrix(~that attribute))\n# add attribute on drop2\n\n# Cleaning up the unused column on data\nkeeps <- c(\"click\",\"C1\",\"banner_pos\",\"site_domain\",\"site_category\",\"device_type\",\"C14\",\"C15\",\"C16\",\"C17\",\"C18\",\"C19\",\"C20\",\"C21\")\n\ndat<-dat[ , (names(dat) %in% keeps)]\n\nnewframe<-as.data.frame(cbind(with(dat,model.matrix(~site_domain)),with(dat, model.matrix(~site_category)),with(dat,model.matrix(~device_type))))\ndrop2 <- c(\"(Intercept)\",\"site_domain\",\"site_category\",\"device_type\")\ndat<-dat[ , !(names(dat) %in% drop2)]\nnewframe<-newframe[ , !(names(newframe) %in% drop2)]\ndat<-cbind(dat,newframe)\n\n\n#drops <- c(\"site_domain\",\"site_category\",\"device_type\",\"id\",\"hour\",\"site_id\",\"app_id\",\"app_domain\",\"app_category\",\"device_id\",\"device_ip\",\"device_model\",\"device_conn_type\")\n#dat<-dat[ , !(names(dat) %in% drops)]\n\n# Making dependent variable factor and label values\ndat$click <- as.factor(dat$click)\ndat$click <- factor(dat$click,levels = c(\"0\",\"1\"),labels = c(\"No\", \"Yes\"))\n\n\nsampling_attr<-c(\"C1\",\"C14\",\"C15\",\"C16\",\"C17\",\"C18\",\"C19\",\"C20\",\"C21\")\n\ndat[,sampling_attr] <- as.data.frame(sapply(dat[,sampling_attr], function(i) if(is.numeric(i)) scale(i) else i))\n\n#dat <- data.frame(lapply(dat, as.character), stringsAsFactors=FALSE)\n#dat <- data.frame(lapply(dat, as.numeric))\n\n#dat[is.na(dat)] <- 0\nreturn(dat)\n}",
+    "created" : 1502136620147.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3286279546",
+    "id" : "D2EF518A",
+    "lastKnownWriteTime" : 1502127470,
+    "last_content_update" : 1502127470,
+    "path" : "~/INSE6180_Project/preprocessing/Preprocessing.R",
+    "project_path" : "preprocessing/Preprocessing.R",
+    "properties" : {
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "#The naiveBayes function takes in numeric or factor variables in a data frame or a numeric matrix.\n#It's important to note that single vectors will not work for the input data but will work for\n#the dependent variable (Y).\nlibrary(e1071)\nnaiveBayesFn<-function(training,testing){\n  model<-naiveBayes(click~.,data=training,laplace=100)\n  pred <- predict(model, testing, type=\"class\")\n  return(pred)\n}",
+    "created" : 1502158801351.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1029457564",
+    "id" : "1E4F5B34",
+    "lastKnownWriteTime" : 1502158816,
+    "last_content_update" : 1502158816095,
+    "path" : "~/INSE6180_Project/base/NaiveBayes.R",
+    "project_path" : "base/NaiveBayes.R",
+    "properties" : {
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

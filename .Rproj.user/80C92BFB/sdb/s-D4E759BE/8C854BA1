@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "library(readr) # Reading data file\nlibrary(caret)\nsource(\"~/INSE6180_Project/base/SVM.R\")\nsource(\"~/INSE6180_Project/base/DecisionTree.R\")\nsource(\"~/INSE6180_Project/base/LogisticRegression.R\")\nsource(\"~/INSE6180_Project/base/NaiveBayes.R\")\n\nsource(\"~/INSE6180_Project/preprocessing/Preprocessing.R\")\n\n\ndat <- read_csv(\"~/INSE6180_Project/data/training10k.csv\")\n\ndat <- preprocessing(dat)\n\n# Split data into two sets - Training and Testing\nset.seed(100)\n\n\ninTrain <- sample(2, nrow(dat), replace=TRUE, prob=c(0.7, 0.3))\n\ntraining <- dat[ inTrain==1,]\ntesting <- dat[inTrain==2,]\n\ndt.test<-decisionTree(training,testing)\nconfusionMatrix(dt.test, testing$click)\n\nsvmradial.test<-svmkernel(\"radial\",training,testing)\nconfusionMatrix(svmradial.test, testing$click)\n\nlr.test<-logisticRegression(training,testing)\nconfusionMatrix(lr.test, testing$click)\n\nnb.test<-naiveBayesFn(training,testing)\nconfusionMatrix(nb.test, testing$click)\n\nvote<-NULL\nvote <- as.factor(vote)\nlevels(vote) = list(No=c(\"1\"),Yes=c(\"2\"))\nfor(i in 1:length(svmradial.test)){\n  vote[i]<-ifelse(which.max(table(c(svmradial.test[i],dt.test[i],lr.test[i])))==1,\"No\",\"Yes\")\n}\nvote\nconfusionMatrix(vote,testing$click)\n",
+    "created" : 1502158474583.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1463876638",
+    "id" : "8C854BA1",
+    "lastKnownWriteTime" : 1502163087,
+    "last_content_update" : 1502163087816,
+    "path" : "~/INSE6180_Project/ensemble/VotingEnsemble.R",
+    "project_path" : "ensemble/VotingEnsemble.R",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

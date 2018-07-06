@@ -1,0 +1,20 @@
+{
+    "collab_server" : "",
+    "contents" : "logisticRegression<-function(training,testing){\nmodel <- glm (click~., data = training, family = binomial)\npredict <- predict(model,testing, type = 'response')\nfor(i in 1:length(predict)){\n  predict[i]<-ifelse(predict[i]>0.5,\"Yes\",\"No\")\n}\nreturn(predict)\n}",
+    "created" : 1502158684312.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "306007415",
+    "id" : "D20C6387",
+    "lastKnownWriteTime" : 1502060714,
+    "last_content_update" : 1502060714,
+    "path" : "~/INSE6180_Project/base/LogisticRegression.R",
+    "project_path" : "base/LogisticRegression.R",
+    "properties" : {
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
